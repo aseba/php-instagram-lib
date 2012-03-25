@@ -1,6 +1,6 @@
 <?php
 
-require 'HttpClient.class.php';
+require 'curl/curl.php';
 
 class InstagramRealTime {
 	private $settings = array();
@@ -19,14 +19,12 @@ class InstagramRealTime {
 			'aspect' => 'media'
 		));
 
-		$client = new HttpClient('api.instagram.com', 443);
-		$client->setDebug(true);
-		$client->post('/v1/subscriptions/', $params);
+		$curl = new Curl;
+		echo $curl->post('https://api.instagram.com/v1/subscriptions/', $params);
 	}
 }
 
-$irt = new InstagramRealTime('699495b3bfaf4632bdc5096e7544ff23', '68af47b6e9174f5dbb94ef913fdc42b3', 'http://public.olapic.com/~aseba/PHPIRT/instagram.php');
-
+$irt = new InstagramRealTime('699495b3bfaf4632bdc5096e7544ff23', '68af47b6e9174f5dbb94ef913fdc42b3', 'http://public.olapic.com/~aseba/PHPIRT/callback.php');
 $irt->addSubscription();
 
 ?>
