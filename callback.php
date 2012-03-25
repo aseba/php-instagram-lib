@@ -5,7 +5,7 @@ if(isset($_POST)){
 	$file = file_get_contents('/tmp/updates.instagram');
 	$data = print_r($_POST);
 	$fulldata = $file . "\n\n" . $data;
-	file_put_contents('/tmp/updates.instagram', $dulldata);
+	file_put_contents('/tmp/updates.instagram', $fulldata);
 	echo $file;
 }
 
