@@ -1,3 +1,3 @@
 [submodule "curl"]
 	path = curl
-	url = git@github.com:aseba/PHPIRT.git
+	url = git@github.com:aseba/curl.git
