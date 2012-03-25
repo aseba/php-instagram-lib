@@ -47,6 +47,7 @@ class InstagramRealTime {
 		else throw new Exception("You must set and object type or and object id, not both"); 
 		$curl = new Curl;
 		$curl->debug = true;
+		http_build_query($params, '', '&');
 		$url = $this->base_url . '/subscriptions/';
 		print_r(json_decode($curl->delete($url, $params), true));
 		$this->listSubscriptions();
@@ -57,7 +58,7 @@ $irt = new InstagramRealTime('699495b3bfaf4632bdc5096e7544ff23', '68af47b6e9174f
 // $irt->addSubscription('tag', 'media', 'nyc');
 // $irt->addSubscription('tag', 'media', 'hq');
 // $irt->addSubscription('tag', 'media', 'catan');
-$irt->listSubscriptions();
+// $irt->listSubscriptions();
 // $irt->deleteSubscription('all');
 
 ?>
