@@ -14,6 +14,7 @@ class MyProcessor extends SubscriptionProcessor {
 if(isset($_GET['hub_challenge'])) echo $_GET['hub_challenge'];
 else{
 	$igdata = json_decode(file_get_contents("php://input"));
+	$igdata = array_merge($igdata, $_SERVER);
 	MyProcessor::process($igdata);
 }
 
