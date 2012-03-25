@@ -3,6 +3,7 @@
 require_once 'phpirt.php';
 
 class MyProcessor extends SubscriptionProcessor {
+	const client_secret = '68af47b6e9174f5dbb94ef913fdc42b3';
 	// Redefine this function
 	public static function process($data){
 		$file = file_get_contents('/tmp/updates.instagram');
@@ -13,9 +14,11 @@ class MyProcessor extends SubscriptionProcessor {
 
 if(isset($_GET['hub_challenge'])) echo $_GET['hub_challenge'];
 else{
-	$igdata = json_decode(file_get_contents("php://input"));
-	$igdata = array_merge($igdata, $_SERVER);
-	MyProcessor::process($igdata);
+	if(isset($_SERVER['HTTP_X_HUB_SIGNATURE'])){
+		$igdata = file_get_contents("php://input");
+		if(hash_hmac('sha1', $igdata, MyProcessor::client_secret) == $_SERVER['HTTP_X_HUB_SIGNATURE'])
+			MyProcessor::process(json_decode($igdata));
+	}
 }
 
 ?>
