@@ -13,8 +13,10 @@ If you `git clone --recursive git://github.com/aseba/PHPIRT.git` everyhing shoul
 
 ### How to use
 
+You will need an instagram client id and client secret. Get it [here](http://instagr.am/developer/manage/).
+
 In order to use this library you will need to set it somewhere where the `callback.php` file can be accessible by instagram servers
 
 `test.php` file has an example on usage for the basic subscriptions calls
 
-To configure the callback usage you must create a new class extending `SubscriptionProcessor` in `phpirt.php` file and redefine the `public static function process($data){}` function.
+To configure the callback usage you must create a new class extending `SubscriptionProcessor` in `phpirt.php` file and redefine the `public static function process($data){}` function. You can see an example at `callback.php` file
