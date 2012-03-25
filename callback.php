@@ -1,11 +1,16 @@
 <?php
 
+require_once 'InstagramRealTime.php';
+
+class MyProcessor extends SubscriptionProcessor() {
+	// Redefine this function
+	// public static function process($data){}
+}
+
 if(isset($_GET['hub_challenge'])) echo $_GET['hub_challenge'];
 else{
-	$file = file_get_contents('/tmp/updates.instagram');
-	$fulldata = $file . "\n\n" . $posted_data;
-	$igdata = file_get_contents("php://input");
-	file_put_contents('/tmp/updates.instagram', $fulldata);
+	$igdata = json_decode(file_get_contents("php://input"));
+	MyProcessor::process($igdata->data);
 }
 
 ?>
