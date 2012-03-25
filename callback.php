@@ -10,7 +10,7 @@ class MyProcessor extends SubscriptionProcessor() {
 if(isset($_GET['hub_challenge'])) echo $_GET['hub_challenge'];
 else{
 	$igdata = json_decode(file_get_contents("php://input"));
-	MyProcessor::process($igdata->data);
+	MyProcessor::process($igdata);
 }
 
 ?>
