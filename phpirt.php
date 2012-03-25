@@ -19,9 +19,9 @@ class InstagramRealTime {
 			'aspect' => 'media'
 		));
 
-		$client = new HttpClient('https://api.instagram.com/v1/subscriptions/');
+		$client = new HttpClient('api.instagram.com', 443);
 		$client->setDebug(true);
-		$client->post('https://api.instagram.com/v1/subscriptions/', $params);
+		$client->post('/v1/subscriptions/', $params);
 	}
 }
 
