@@ -1,8 +1,8 @@
 #PHPIRT
-## PHP Instagram Real Time api implementation
+## PHP Instagram Real Time API implementation
 
 ###Disclaimer
-This an in ultra-alpha library, but it works. It's just a piece of code I've created to play along with the Instagram Real Time API
+This an in ultra-alpha library, but it works. It's just a piece of code I've created to play along with the [Instagram Real Time API](http://instagram.com/developer/realtime/)
 
 ### Required libraries
 You'll need to have the curl library installed along with PHP.
