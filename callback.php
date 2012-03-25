@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_GET['hub_challenge'])) echo $_GET['hub_challenge'];
-if(isset($_POST)){
+else{
 	$file = file_get_contents('/tmp/updates.instagram');
 	$posted_data = file_get_contents("php://input");
 	$fulldata = $file . "\n\n" . $posted_data;
