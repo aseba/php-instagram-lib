@@ -18,7 +18,7 @@ class InstagramRealTime {
 			'object' => $object,
 			'aspect' => $aspect
 		));
-		if(!is_null($object_id)) $params['object_id' => $object_id];
+		if(!is_null($object_id)) $params['object_id'] = $object_id;
 		$curl = new Curl;
 		echo $curl->post('https://api.instagram.com/v1/subscriptions/', $params);
 	}
