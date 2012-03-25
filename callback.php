@@ -1,8 +1,8 @@
 <?php
 
-require_once 'InstagramRealTime.php';
+require_once 'phpirt.php';
 
-class MyProcessor extends SubscriptionProcessor() {
+class MyProcessor extends SubscriptionProcessor {
 	// Redefine this function
 	// public static function process($data){}
 }
