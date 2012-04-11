@@ -22,14 +22,14 @@ class InstagramRealTime {
 		if(!is_null($object_id)) $params['object_id'] = $object_id;
 		$curl = new Curl;
 		$url = $this->base_url . '/subscriptions/';
-		echo $curl->post($url, $params);
+		return(json_decode($curl->post($url, $params), true));
 	}
 
 	public function listSubscriptions(){
 		$params = $this->settings;
 		$curl = new Curl;
 		$url = $this->base_url . '/subscriptions/';
-		print_r(json_decode($curl->get($url, $params), true));
+		return(json_decode($curl->get($url, $params), true));
 	}
 
 	public function deleteSubscription($object=null, $id=null){
@@ -49,7 +49,7 @@ class InstagramRealTime {
 		// This is done because it seems instagram does not accept params correctly (or something). We got to send them in the url
 		$params = http_build_query($params, '', '&');
 		$url = $this->base_url . '/subscriptions?' . $params;
-		print_r(json_decode($curl->delete($url, $params), true));
+		return(json_decode($curl->delete($url, $params), true));
 	}
 }
 
