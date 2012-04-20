@@ -14,12 +14,15 @@ class InstagramRealTime {
 		);
 	}
 
-	public function addSubscription($object, $aspect, $object_id=null){
+	public function addSubscription($object, $aspect, $object_id=null, $extra=array()){
 		$params = array_merge($this->settings, array(
 			'object' => $object,
 			'aspect' => $aspect
 		));
 		if(!is_null($object_id)) $params['object_id'] = $object_id;
+		foreach($extra as $extraKey=>$extraValue){
+			$params[$extraKey] = $extraValue;
+		}
 		$curl = new Curl;
 		$url = $this->base_url . '/subscriptions/';
 		return(json_decode($curl->post($url, $params), true));
