@@ -3,7 +3,7 @@
 require_once 'phpirt.php';
 
 class MyProcessor extends SubscriptionProcessor {
-	const client_secret = '68af47b6e9174f5dbb94ef913fdc42b3';
+	const client_secret = 'YOUR API SECRET';
 	// Redefine this function
 	public static function process($data){
 		$file = file_get_contents('/tmp/updates.instagram');
