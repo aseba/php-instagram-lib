@@ -6,12 +6,14 @@ class InstagramRealTime {
 	private $settings = array();
 	private $base_url = 'https://api.instagram.com/v1';
 
-	public function InstagramRealTime($client_id, $client_secret, $callback_url){
+	public function InstagramRealTime($client_id, $client_secret, $callback_url=null){
 		$this->settings = array(
 			'client_id' => $client_id,
-			'client_secret' => $client_secret,
-			'callback_url' => $callback_url
+			'client_secret' => $client_secret
 		);
+		if(!is_null($callback_url)){
+			$this->settings['callback_url'] = $callback_url;
+		}
 	}
 
 	public function addSubscription($object, $aspect, $object_id=null, $extra=array()){
@@ -23,16 +25,11 @@ class InstagramRealTime {
 		foreach($extra as $extraKey=>$extraValue){
 			$params[$extraKey] = $extraValue;
 		}
-		$curl = new Curl;
-		$url = $this->base_url . '/subscriptions/';
-		return(json_decode($curl->post($url, $params), true));
+		return $this->generic("/subscriptions/", $params);
 	}
 
 	public function listSubscriptions(){
-		$params = $this->settings;
-		$curl = new Curl;
-		$url = $this->base_url . '/subscriptions/';
-		return(json_decode($curl->get($url, $params), true));
+		return $this->generic("/subscriptions/");
 	}
 
 	public function deleteSubscription($object=null, $id=null){
@@ -53,6 +50,13 @@ class InstagramRealTime {
 		$params = http_build_query($params, '', '&');
 		$url = $this->base_url . '/subscriptions?' . $params;
 		return(json_decode($curl->delete($url, $params), true));
+	}
+
+	public function generic($endpoint='', $params=array()){
+		$curl = new Curl;
+		$params = array_merge( $this->settings, $params );
+		$url = $this->base_url . $endpoint;
+		return(json_decode($curl->get($url, $params), true));
 	}
 }
 
