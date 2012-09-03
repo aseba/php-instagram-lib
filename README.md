@@ -9,7 +9,7 @@ You'll need to have the curl library installed along with PHP.
 
 We also use [curl library](https://github.com/shuber/curl) from [shuber](https://github.com/shuber)
 
-If you `git@github.com:aseba/php-instagram-lib.git` everyhing should be working fine
+If you `git clone --recursive git@github.com:aseba/php-instagram-lib.git` everyhing should be working fine
 
 ### How to use the REAL TIME API
 
