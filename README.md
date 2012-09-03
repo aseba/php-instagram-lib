@@ -9,9 +9,9 @@ You'll need to have the curl library installed along with PHP.
 
 We also use [curl library](https://github.com/shuber/curl) from [shuber](https://github.com/shuber)
 
-If you `git clone --recursive git://github.com/aseba/PHPIRT.git` everyhing should be working fine
+If you `git@github.com:aseba/php-instagram-lib.git` everyhing should be working fine
 
-### How to use
+### How to use the REAL TIME API
 
 You will need an instagram client id and client secret. Get it [here](http://instagr.am/developer/manage/).
 
