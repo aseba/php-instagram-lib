@@ -1,5 +1,5 @@
 #PHPIRT
-## PHP Instagram Real Time API implementation
+## PHP Instagram implementation
 
 ###Disclaimer
 This an in ultra-alpha library, but it works. It's just a piece of code I've created to play along with the [Instagram Real Time API](http://instagram.com/developer/realtime/)
@@ -20,3 +20,7 @@ In order to use this library you will need to set it somewhere where the `callba
 `test.php` file has an example on usage for the basic subscriptions calls
 
 To configure the callback usage you must create a new class extending `SubscriptionProcessor` in `phpirt.php` file and redefine the `public static function process($data){}` function. You can see an example at `callback.php` file
+
+#### Example
+$i = new InstagramRealTime(INSTAGRAM_KEY, INSTAGRAM_SECRET);
+$photos = $i->generic("/tags/$hashtag/media/recent");
