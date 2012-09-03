@@ -22,5 +22,7 @@ In order to use this library you will need to set it somewhere where the `callba
 To configure the callback usage you must create a new class extending `SubscriptionProcessor` in `phpirt.php` file and redefine the `public static function process($data){}` function. You can see an example at `callback.php` file
 
 #### Example
+```
 $i = new InstagramRealTime(INSTAGRAM_KEY, INSTAGRAM_SECRET);
 $photos = $i->generic("/tags/$hashtag/media/recent");
+```
