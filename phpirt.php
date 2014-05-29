@@ -61,13 +61,25 @@ class InstagramRealTime {
 	}
 
 	public function generic($endpoint='', $params=array()){
+		$curl = $this->getCurl();
+		$params = array_merge( $this->settings, $params );
+		$url = $this->base_url . $endpoint;
+		return(json_decode($curl->get($url, $params), true));
+	}
+
+	public function genericPost($endpoint='', $params=array()){
+		$curl = $this->getCurl();
+		$params = array_merge( $this->settings, $params );
+		$url = $this->base_url . $endpoint;
+		return(json_decode($curl->post($url, $params), true));
+	}
+
+	protected function getCurl() {
 		$curl = new Curl;
 		if (!is_null($this->signature)) {
 			$curl->headers['X-Insta-Forwarded-For'] = $this->signature;
 		}
-		$params = array_merge( $this->settings, $params );
-		$url = $this->base_url . $endpoint;
-		return(json_decode($curl->get($url, $params), true));
+		return $curl;
 	}
 }
 
