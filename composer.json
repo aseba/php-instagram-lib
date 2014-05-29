@@ -1,0 +1,12 @@
+{
+	"name": "aseba/phpirt",
+	"type": "composer",
+	"description": "PHP Instagram API client",
+	"license": "MIT",
+	"autoload": {
+		"classmap":
+		[
+			"."
+		]
+	}
+}
