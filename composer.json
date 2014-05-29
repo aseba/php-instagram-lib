@@ -1,5 +1,5 @@
 {
-	"name": "aseba/phpirt",
+	"name": "aseba/php-instagram-lib",
 	"type": "composer",
 	"description": "PHP Instagram API client",
 	"license": "MIT",
