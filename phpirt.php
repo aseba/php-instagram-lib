@@ -5,6 +5,7 @@ require 'curl/curl.php';
 class InstagramRealTime {
 	private $settings = array();
 	private $base_url = 'https://api.instagram.com/v1';
+	private $signature;
 
 	public function InstagramRealTime($client_id, $client_secret, $callback_url=null){
 		$this->settings = array(
@@ -14,6 +15,13 @@ class InstagramRealTime {
 		if(!is_null($callback_url)){
 			$this->settings['callback_url'] = $callback_url;
 		}
+	}
+
+	public function addSignature($ip) {
+		if (empty($this->settings['client_secret'])) {
+			throw new Exception('Can not sign the request without OAuth Client Secret');
+		}
+		$this->signature = $ip .'|'. hash_hmac('sha256', $ip, $this->settings['client_secret'], false);
 	}
 
 	public function addSubscription($object, $aspect, $object_id=null, $extra=array()){
@@ -54,6 +62,9 @@ class InstagramRealTime {
 
 	public function generic($endpoint='', $params=array()){
 		$curl = new Curl;
+		if (!is_null($this->signature)) {
+			$curl->headers['X-Insta-Forwarded-For'] = $this->signature;
+		}
 		$params = array_merge( $this->settings, $params );
 		$url = $this->base_url . $endpoint;
 		return(json_decode($curl->get($url, $params), true));
