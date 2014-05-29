@@ -63,5 +63,3 @@ class InstagramRealTime {
 class SubscriptionProcessor{
 	public static function process($data){}
 }
-
-?>
