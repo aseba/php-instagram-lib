@@ -6,6 +6,7 @@ class InstagramRealTime {
 	private $settings = array();
 	private $base_url = 'https://api.instagram.com/v1';
 	private $signature;
+	private $headers = [];
 
 	public function InstagramRealTime($client_id, $client_secret, $callback_url=null){
 		$this->settings = array(
@@ -64,14 +65,22 @@ class InstagramRealTime {
 		$curl = $this->getCurl();
 		$params = array_merge( $this->settings, $params );
 		$url = $this->base_url . $endpoint;
-		return(json_decode($curl->get($url, $params), true));
+		$response = $curl->get($url, $params);
+		$this->headers = $response->headers;
+		return(json_decode($response, true));
 	}
 
 	public function genericPost($endpoint='', $params=array()){
 		$curl = $this->getCurl();
 		$params = array_merge( $this->settings, $params );
 		$url = $this->base_url . $endpoint;
-		return(json_decode($curl->post($url, $params), true));
+		$response = $curl->post($url, $params);
+		$this->headers = $response->headers;
+		return(json_decode($response, true));
+	}
+
+	public function getResponseHeaders(){
+		return $this->headers;
 	}
 
 	protected function getCurl() {
