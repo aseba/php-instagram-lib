@@ -83,6 +83,10 @@ class InstagramRealTime {
 		return $this->headers;
 	}
 
+	public function getHeader($header){
+		return ! empty($this->headers[$header]) ? $this->headers[$header] : null;
+	}
+
 	protected function getCurl() {
 		$curl = new Curl;
 		if (!is_null($this->signature)) {
