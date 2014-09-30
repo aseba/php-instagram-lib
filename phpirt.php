@@ -9,6 +9,10 @@ class InstagramRealTime {
 	private $headers = [];
 	private $last_url = '';
 	private $debug = false;
+	
+	public function setBaseUrl($url) {
+		$this->base_url = $url;
+	}
 
 	public function InstagramRealTime($client_id, $client_secret, $callback_url=null) {
 		$this->settings = array(
