@@ -1,3 +1,0 @@
-[submodule "curl"]
-	path = curl
-	url = git://github.com/aseba/curl.git
