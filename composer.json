@@ -3,10 +3,12 @@
 	"type": "composer",
 	"description": "PHP Instagram API client",
 	"license": "MIT",
-	"autoload": {
-		"classmap":
-		[
-			"."
-		]
+	"autoload"    : {
+      "psr-4": {
+          "Instagram\\" : "src/"
+      }
+  },
+	"require": {
+		"guzzlehttp/guzzle": "^6.2"
 	}
 }
