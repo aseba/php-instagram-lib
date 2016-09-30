@@ -10,6 +10,7 @@ class Instagram {
 	private $debug = false;
 	private $guzzle;
 	private $access_token;
+	private $sign = false;
 
 	public function __construct($client_id, $client_secret, $callback_url=null) {
 		$this->settings = array(
@@ -25,6 +26,10 @@ class Instagram {
 		);
 	}
 
+	public function sign($new_value=true) {
+		$this->sign = $new_value;
+	}
+
 	private function generate_signature($endpoint, $params) {
 	  $sig = $endpoint;
 	  ksort($params);
@@ -34,11 +39,17 @@ class Instagram {
 	  return hash_hmac('sha256', $sig, $this->settings['client_secret'], false);
 	}
 
-	public function generic($endpoint='', $params=[]) {
+	public function generic($endpoint='', $extra_params=[]) {
+		$endpoint = ltrim($endpoint, '/');
+		$params = [
+			'access_token' => $this->access_token,
+		];
+		$params = array_merge($params, $extra_params);
+		if($this->sign) {
+			$params['sig'] = $this->generate_signature("/$endpoint", $params);
+		}
 		$response = $this->guzzle->get($endpoint, [
-			"query" => [
-				'access_token' => $this->access_token,
-			]
+			"query" => $params
 		]);
 		return(json_decode($response->getBody(), true));
 	}
