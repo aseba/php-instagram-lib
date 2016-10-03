@@ -1,28 +1,95 @@
-#PHPIRT
-## PHP Instagram implementation
+##Disclaimer
+This is a very lightweight PHP Instagram API Library that I've created to test
+the API. It is very simple and it works, it may not be the best thing to use in
+production though.
 
-###Disclaimer
-This an in ultra-alpha library, but it works. It's just a piece of code I've created to play along with the [Instagram Real Time API](http://instagram.com/developer/realtime/)
+##Required libraries
+All requirements are set in the `composer.json`
 
-### Required libraries
-You'll need to have the curl library installed along with PHP.
+- [guzzle http client](http://docs.guzzlephp.org/en/latest/)
 
-We also use [curl library](https://github.com/shuber/curl) from [shuber](https://github.com/shuber)
+## How to use
+###Quick Start
+Create an instance of the `Instagram` object using you Instagram App
+information.
 
-If you `git clone --recursive git@github.com:aseba/php-instagram-lib.git` everyhing should be working fine
+It is important that the `callback_uri` to match the one you set up in the app
+setting or the oauth login url will fail.
 
-### How to use the REAL TIME API
+```php
+use Instagram\Instagram;
 
-You will need an instagram client id and client secret. Get it [here](http://instagr.am/developer/manage/).
-
-In order to use this library you will need to set it somewhere where the `callback.php` file can be accessible by instagram servers
-
-`test.php` file has an example on usage for the basic subscriptions calls
-
-To configure the callback usage you must create a new class extending `SubscriptionProcessor` in `phpirt.php` file and redefine the `public static function process($data){}` function. You can see an example at `callback.php` file
-
-#### Example
+$instagram = new Instagram('client_id', 'client_secret', 'callback_uri');
 ```
-$i = new InstagramRealTime(INSTAGRAM_KEY, INSTAGRAM_SECRET);
-$photos = $i->generic("/tags/$hashtag/media/recent");
+
+###Set an Access Token
+```php
+$instagram->setAccessToken('Access Token');
+```
+
+###Generic request
+Create a request to any API endpoint.
+
+The `generic` method lets you request an endpoint and add parameters to the
+request.
+
+Examples:
+
+```php
+ //recent photos with the hasthag love
+$content = $instagram->generic('/tags/love/media/recent');
+
+//liked photos for the user set with the access token
+$content = $instagram->generic('/users/self/media/liked');
+
+//search for users by username
+$content = $instagram->generic('/users/search', ['q' => 'aseba']);
+
+//get recent media from user
+$content = $instagram->generic('user/media/recent');
+```
+
+###Oauth
+####Login
+
+You can use `getLogin()` to get the url to take the user to start the oauth
+process.
+
+```
+$instagram->getLogin('response type', [scopes]));
+```
+
+- `Response Type` is set to `code` by default.
+- `scopes` is empty by default.
+
+Example:
+```php
+$instagram->getLogin('token', ['basic','public_content','comments', 'relationships', 'follower_list']));
+```
+
+###Signed requests
+If your app requires signed requests you can use the `$instagram->sign()` to
+start signing all requests to Instagram.
+
+###Full working example
+
+`test.php`
+
+```php
+<?php
+
+set_time_limit(0);
+date_default_timezone_set('UTC');
+require __DIR__.'/vendor/autoload.php';
+
+use Instagram\Instagram;
+
+$instagram = new Instagram('client_id', 'client_secret', 'callback_uri');
+$instagram->setAccessToken('Access Token');
+$instagram->sign();
+$content = $instagram->generic('tags/love/media/recent');
+
+foreach($content->data as $media) {
+  echo($media->caption->text . "\n");
+}
 ```
