@@ -1,13 +1,14 @@
 {
 	"name": "aseba/php-instagram-lib",
+	"version": "1.0.0",
 	"type": "composer",
 	"description": "PHP Instagram API client",
 	"license": "MIT",
-	"autoload"    : {
-      "psr-4": {
-          "Instagram\\" : "src/"
-      }
-  },
+	"autoload" : {
+		"psr-4": {
+	    "Instagram\\" : "src/"
+		}
+	},
 	"require": {
 		"guzzlehttp/guzzle": "^6.2"
 	},
