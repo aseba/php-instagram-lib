@@ -1,10 +1,9 @@
 {
 	"name": "aseba/php-instagram-lib",
-	"description": "A PHP library to user Instagram's API",
+	"description": "A PHP library to use Instagram's API",
 	"type": "library",
   "prefer-stable": true,
   "minimum-stability": "dev",
-	"description": "PHP Instagram API client",
 	"license": "MIT",
 	"autoload" : {
 		"psr-4": {
