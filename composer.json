@@ -1,7 +1,9 @@
 {
 	"name": "aseba/php-instagram-lib",
-	"version": "1.0.0",
-	"type": "composer",
+	"description": "A PHP library to user Instagram's API",
+	"type": "library",
+  "prefer-stable": true,
+  "minimum-stability": "dev",
 	"description": "PHP Instagram API client",
 	"license": "MIT",
 	"autoload" : {
