@@ -101,4 +101,20 @@ class Instagram
     {
         $this->debug = (bool) $debug;
     }
+
+    public function comment($media_id, $text) {
+      return $this->generic(
+        sprintf('media/%s/comments', $media_id),
+        ['text' => $text],
+        'POST'
+      );
+    }
+
+    public function delete_comment($media_id, $comment_id) {
+      return $this->generic(
+        sprintf('media/%s/comments/%s', $media_id, $comment_id),
+        [],
+        'DELETE'
+      );
+    }
 }
