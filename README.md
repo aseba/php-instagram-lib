@@ -49,6 +49,28 @@ $content = $instagram->generic('/users/search', ['q' => 'aseba']);
 $content = $instagram->generic('user/media/recent');
 ```
 
+### Comments
+
+We've created two helper methods to make comment processing easier
+
+#### Post
+Use the comment requests to post a message as a comment in an instagram
+
+[Link to the documentation in Instagram](https://www.instagram.com/developer/endpoints/comments/)
+
+```
+$response = $instagram->comment($media_id, $message);
+```
+
+#### Delete
+Remove a comment of an instagram
+
+[Link to the documentation in Instagram](https://www.instagram.com/developer/endpoints/comments/)
+
+```
+$response = $instagram->delete_comment($media_id, $comment_id);
+```
+
 ### Oauth
 #### Login
 
