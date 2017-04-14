@@ -1,15 +1,15 @@
-##Disclaimer
+## Disclaimer
 This is a very lightweight PHP Instagram API Library that I've created to test
 the API. It is very simple and it works, it may not be the best thing to use in
 production though.
 
-##Required libraries
+## Required libraries
 All requirements are set in the `composer.json`
 
 - [guzzle http client](http://docs.guzzlephp.org/en/latest/)
 
 ## How to use
-###Quick Start
+### Quick Start
 Create an instance of the `Instagram` object using you Instagram App
 information.
 
@@ -22,12 +22,12 @@ use Instagram\Instagram;
 $instagram = new Instagram('client_id', 'client_secret', 'callback_uri');
 ```
 
-###Set an Access Token
+### Set an Access Token
 ```php
 $instagram->setAccessToken('Access Token');
 ```
 
-###Generic request
+### Generic request
 Create a request to any API endpoint.
 
 The `generic` method lets you request an endpoint and add parameters to the
@@ -49,8 +49,8 @@ $content = $instagram->generic('/users/search', ['q' => 'aseba']);
 $content = $instagram->generic('user/media/recent');
 ```
 
-###Oauth
-####Login
+### Oauth
+#### Login
 
 You can use `getLogin()` to get the url to take the user to start the oauth
 process.
@@ -67,11 +67,11 @@ Example:
 $instagram->getLogin('token', ['basic','public_content','comments', 'relationships', 'follower_list']));
 ```
 
-###Signed requests
+### Signed requests
 If your app requires signed requests you can use the `$instagram->sign()` to
 start signing all requests to Instagram.
 
-###Full working example
+### Full working example
 
 `test.php`
 
