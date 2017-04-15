@@ -42,7 +42,7 @@ class Instagram
         return hash_hmac('sha256', $sig, $this->settings['client_secret'], false);
     }
 
-    public function generic($endpoint = '', $extra_params = [], $type='GET')
+    public function generic($endpoint = '', $extra_params = [], $type = 'GET')
     {
         $endpoint = ltrim($endpoint, '/');
         $params = [
@@ -53,21 +53,21 @@ class Instagram
             $params['sig'] = $this->generateSignature("/$endpoint", $params);
         }
 
-        if($type == 'GET') {
-          $response = $this->guzzle->get($endpoint, [
+        if ($type == 'GET') {
+            $response = $this->guzzle->get($endpoint, [
               'query' => $params,
           ]);
         }
 
-        if($type == 'POST') {
-          $response = $this->guzzle->request('POST', $endpoint, [
+        if ($type == 'POST') {
+            $response = $this->guzzle->request('POST', $endpoint, [
             'query' => $params,
-            'form_params' => $extra_params
+            'form_params' => $extra_params,
           ]);
         }
 
-        if($type == "DELETE") {
-          $response = $this->guzzle->delete($endpoint, [
+        if ($type == 'DELETE') {
+            $response = $this->guzzle->delete($endpoint, [
               'query' => $params,
           ]);
         }
@@ -102,16 +102,18 @@ class Instagram
         $this->debug = (bool) $debug;
     }
 
-    public function comment($media_id, $text) {
-      return $this->generic(
+    public function comment($media_id, $text)
+    {
+        return $this->generic(
         sprintf('media/%s/comments', $media_id),
         ['text' => $text],
         'POST'
       );
     }
 
-    public function delete_comment($media_id, $comment_id) {
-      return $this->generic(
+    public function delete_comment($media_id, $comment_id)
+    {
+        return $this->generic(
         sprintf('media/%s/comments/%s', $media_id, $comment_id),
         [],
         'DELETE'
