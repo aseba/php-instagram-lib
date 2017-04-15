@@ -1,6 +1,6 @@
 <?php
 
-namespace Instagram;
+namespace aseba\Instagram;
 
 class Instagram
 {
