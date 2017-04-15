@@ -4,9 +4,9 @@ namespace aseba\Instagram;
 
 class IterableHashtag implements \Iterator
 {
-    public function __construct(Instagram $instagram, $hashtag)
+    public function __construct(InstagramRepository $repository, $hashtag)
     {
-        $this->instagram = $instagram;
+        $this->repository = $repository;
         $this->hashtag = $hashtag;
 
         $this->pagination = null;
@@ -39,17 +39,9 @@ class IterableHashtag implements \Iterator
 
     public function current()
     {
-        if (is_null($this->max_tag_id)) {
-            $content = $this->instagram->generic(sprintf('/tags/%s/media/recent', $this->hashtag));
-        } else {
-            $content = $this->instagram->generic(
-        sprintf('/tags/%s/media/recent', $this->hashtag),
-        ['max_tag_id' => $this->max_tag_id]
-      );
-        }
-
-        $this->pagination = $content->pagination;
-        $this->content = $content->data;
+        $content = $this->repository->getInstagramsFromHashtag($this->hashtag, $this->max_tag_id);
+        $this->pagination = $this->repository->getPaginationInfo();
+        $this->content = $content;
 
         return $this->content;
     }
@@ -57,8 +49,8 @@ class IterableHashtag implements \Iterator
     public function key()
     {
         return [
-      'max_tag_id' => $this->max_tag_id,
-      'min_tag_id' => $this->min_tag_id,
-    ];
+        'max_tag_id' => $this->max_tag_id,
+        'min_tag_id' => $this->min_tag_id,
+      ];
     }
 }
