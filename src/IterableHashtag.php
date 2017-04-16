@@ -2,7 +2,7 @@
 
 namespace aseba\Instagram;
 
-class IterableHashtag implements \Iterator
+class IterableHashtag implements \Iterator, \ArrayAccess
 {
     private $repository;
     private $hashtag;
@@ -55,5 +55,27 @@ class IterableHashtag implements \Iterator
     public function key()
     {
       return $this->position;
+    }
+
+    public function offsetSet($offset, $value) {
+        if (is_null($offset)) {
+            $this->content[] = $value;
+        } else {
+            $this->content[$offset] = $value;
+        }
+    }
+
+    public function offsetExists($offset)
+    {
+      return isset($this->content[$offset]);
+    }
+
+    public function offsetUnset($offset)
+    {
+      unset($this->content[$offset]);
+    }
+
+    public function offsetGet($offset) {
+      return isset($this->content[$offset]) ? $this->content[$offset] : null;
     }
 }
