@@ -10,8 +10,9 @@ class Instagram
     private $guzzle;
     private $access_token;
     private $sign = false;
+    private $as_array = false;
 
-    public function __construct($client_id, $client_secret, $callback_url = null)
+    public function __construct($client_id, $client_secret, $callback_url = null, $as_array=false)
     {
         $this->settings = array(
             'client_id' => $client_id,
@@ -24,6 +25,8 @@ class Instagram
         $this->guzzle = new \GuzzleHttp\Client(
             ['base_uri' => 'https://api.instagram.com/v1/']
         );
+
+        $this->as_array = $as_array;
     }
 
     public function sign($new_value = true)
@@ -72,7 +75,7 @@ class Instagram
           ]);
         }
 
-        return json_decode($response->getBody());
+        return json_decode($response->getBody(), $this->as_array);
     }
 
     public function getLogin($response_type = 'code', array $scopes = [])
